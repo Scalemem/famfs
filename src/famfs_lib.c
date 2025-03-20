@@ -3934,7 +3934,7 @@ famfs_mkfs(const char *daxdev,
 	enum famfs_extent_type type = SIMPLE_DAX_EXTENT;
 	struct famfs_superblock *sb;
 	struct famfs_log *logp;
-	u64 min_devsize = 4ll * 1024ll * 1024ll * 1024ll;
+	u64 min_devsize = 256 * 1024ll * 1024ll;
 	char *mpt = NULL;
 
 	mpt = famfs_get_mpt_by_dev(daxdev);
@@ -3982,7 +3982,7 @@ famfs_mkfs(const char *daxdev,
 	printf("devsize: %ld\n", devsize);
 
 	if (devsize < min_devsize) {
-		fprintf(stderr, "%s: unsupported memory device size (<4GiB)\n", __func__);
+		fprintf(stderr, "%s: unsupported memory device size (<256MiB)\n", __func__);
 		return -EINVAL;
 	}
 
