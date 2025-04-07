@@ -16,6 +16,7 @@ include_directories("${PROJECT_SOURCE_DIR}/../kmod")
 include_directories("${PROJECT_SOURCE_DIR}/testlib")
 
 add_library(famfs_unit_testlib famfs_unit.c)
+target_include_directories(famfs_unit_testlib PUBLIC ${PROJECT_SOURCE_DIR}/linux_include)
 
 #file(GLOB sources "${PROJECT_SOURCE_DIR}/src/test/*.c")
 #list(REMOVE_ITEM sources "${PROJECT_SOURCE_DIR}/src/main.c")
@@ -34,6 +35,7 @@ foreach(file ${tests})
     ${file}
     )
 #    "${PROJECT_SOURCE_DIR}/test/main.cpp")
+  target_include_directories("${name}_tests" PUBLIC ${PROJECT_SOURCE_DIR}/linux_include)
   target_link_libraries("${name}_tests" gtest_main libfamfs famfstest uuid famfs_unit_testlib )
   message(STATUS "name=${name}")
   add_test(NAME ${name} COMMAND "${name}_tests")
